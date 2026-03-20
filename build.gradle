@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'net.serenity-bdd.serenity-gradle-plugin' version '4.0.15'
+}
+
+group 'co.com.sofka'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'net.serenity-bdd:serenity-core:4.0.15'
+    implementation 'net.serenity-bdd:serenity-cucumber:4.0.15'
+    implementation 'net.serenity-bdd:serenity-screenplay:4.0.15'
+    implementation 'net.serenity-bdd:serenity-screenplay-webdriver:4.0.15'
+    testImplementation 'org.junit.platform:junit-platform-launcher:1.10.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    testImplementation 'junit:junit:4.13.2'
+    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.10.0'
+    implementation 'org.slf4j:slf4j-simple:2.0.7'
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty "cucumber.filter.tags", System.getProperty("cucumber.filter.tags")
+}
+
+serenity {
+    reports = ["html"]
+}
