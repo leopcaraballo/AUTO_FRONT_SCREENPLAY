@@ -1,11 +1,11 @@
-Feature: Registro de llegada de paciente
+Feature: Patient arrival registration
 
-  Escenario: Registro de llegada exitoso
-    Dado que el usuario está en la página de registro de llegada
-    Cuando ingresa datos de llegada válidos
-    Entonces debería ver un mensaje de éxito en el diario de recepción
+  Scenario: Successful registration
+    Given that the user is on the registration page
+    When entering valid arrival data
+    Then should see a success message in the reception log
 
-  Escenario: Registro de llegada fallido
-    Dado que el usuario está en la página de registro de llegada
-    Cuando ingresa datos de llegada incompletos o inválidos
-    Entonces debería ver mensajes de error de validación
+  Scenario: Failed registration
+    Given that the user is on the registration page
+    When entering incomplete or invalid arrival data
+    Then should see validation error messages

@@ -15,19 +15,32 @@ dependencies {
     implementation 'net.serenity-bdd:serenity-cucumber:4.0.15'
     implementation 'net.serenity-bdd:serenity-screenplay:4.0.15'
     implementation 'net.serenity-bdd:serenity-screenplay-webdriver:4.0.15'
-    testImplementation 'org.junit.platform:junit-platform-launcher:1.10.0'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
-    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    implementation 'org.slf4j:slf4j-simple:2.0.7'
+
     testImplementation 'junit:junit:4.13.2'
     testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.10.0'
-    implementation 'org.slf4j:slf4j-simple:2.0.7'
+    testImplementation 'net.serenity-bdd:serenity-junit:4.0.15'
 }
 
 test {
     useJUnitPlatform()
+    include '**/*Test.class'
+    include '**/*Runner.class'
+    testLogging {
+        showStandardStreams = true
+    }
     systemProperty "cucumber.filter.tags", System.getProperty("cucumber.filter.tags")
+    systemProperty "serenity.outputDirectory", "${project.projectDir}/target/site/serenity"
 }
 
 serenity {
     reports = ["html"]
+    outputDirectory = "${project.projectDir}/target/site/serenity"
+}
+
+tasks.named('aggregate') {
+    doFirst {
+        System.setProperty('serenity.outputDirectory', "${project.projectDir}/target/site/serenity")
+        System.setProperty('projectDir', project.projectDir.absolutePath)
+    }
 }

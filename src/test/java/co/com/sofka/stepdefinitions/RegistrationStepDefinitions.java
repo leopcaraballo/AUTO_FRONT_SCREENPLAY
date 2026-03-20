@@ -26,7 +26,7 @@ public class RegistrationStepDefinitions {
         OnStage.setTheStage(new OnlineCast());
     }
 
-    @Dado("que el usuario está en la página de registro de llegada")
+    @Dado("that the user is on the registration page")
     public void queElUsuarioEstaEnLaPaginaDeRegistro() {
         theActorCalled("Usuario").wasAbleTo(
                 Login.asSuperAdmin(),
@@ -34,23 +34,24 @@ public class RegistrationStepDefinitions {
         );
     }
 
-    @Cuando("ingresa datos de llegada válidos")
+    @Cuando("entering valid arrival data")
     public void ingresaDatosValidos() {
-        Patient validPatient = new Patient("123456789", "Juan Perez");
+        String randomId = java.util.UUID.randomUUID().toString().substring(0, 8);
+        Patient validPatient = new Patient(randomId, "Juan Perez Auto");
         theActorInTheSpotlight().attemptsTo(
                 FillRegistrationForm.withData(validPatient),
                 SubmitRegistration.form()
         );
     }
 
-    @Entonces("debería ver un mensaje de éxito en el diario de recepción")
+    @Entonces("should see a success message in the reception log")
     public void deberiaVerUnMensajeDeConfirmacion() {
         theActorInTheSpotlight().should(
                 seeThat(RegistrationResult.is(ExpectedResult.SUCCESS), is(true))
         );
     }
 
-    @Cuando("ingresa datos de llegada incompletos o inválidos")
+    @Cuando("entering incomplete or invalid arrival data")
     public void ingresaDatosIncompletosOInvalidos() {
         Patient invalidPatient = new Patient("", "");
         theActorInTheSpotlight().attemptsTo(
@@ -59,7 +60,7 @@ public class RegistrationStepDefinitions {
         );
     }
 
-    @Entonces("debería ver mensajes de error de validación")
+    @Entonces("should see validation error messages")
     public void deberiaVerMensajesDeError() {
         theActorInTheSpotlight().should(
                 seeThat(RegistrationResult.is(ExpectedResult.FAILURE), is(true))
