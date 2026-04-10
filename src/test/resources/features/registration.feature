@@ -1,11 +1,15 @@
 Feature: Patient arrival registration
 
   Scenario: Successful registration
-    Given that the user is on the registration page
-    When entering valid arrival data
-    Then should see a success message in the reception log
+    Given que el usuario está en la página de registro
+    When ingresa datos de llegada válidos
+    Then debería ver un mensaje de éxito en el registro de recepción
 
   Scenario: Failed registration
-    Given that the user is on the registration page
-    When entering incomplete or invalid arrival data
-    Then should see validation error messages
+    Given que el usuario está en la página de registro
+    When ingresa datos de llegada incompletos o inválidos
+    Then debería ver mensajes de error de validación
+
+  Scenario: Public landing page is visible
+    Given que un visitante abre la pantalla pública
+    Then el mensaje de bienvenida debería ser visible

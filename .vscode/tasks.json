@@ -1,0 +1,74 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "compile-ui-screenplay-automation",
+      "type": "shell",
+      "command": "./gradlew",
+      "args": ["testClasses", "--no-daemon"],
+      "isBackground": false,
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "clean-validate-ui-screenplay-automation",
+      "type": "shell",
+      "command": "./gradlew",
+      "args": ["clean", "test", "--no-daemon"],
+      "options": {
+        "env": {
+          "RLAPP_FRONTEND_BASE_URL": "${input:rlappFrontendBaseUrl}",
+          "RLAPP_VALID_USERNAME": "${input:rlappUiValidUsername}",
+          "RLAPP_VALID_PASSWORD": "${input:rlappUiValidPassword}"
+        }
+      },
+      "isBackground": false,
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "compile-screenplay-check",
+      "type": "shell",
+      "command": "./gradlew",
+      "args": ["testClasses", "--no-daemon"],
+      "isBackground": false,
+      "problemMatcher": [],
+      "group": "test"
+    },
+    {
+      "label": "run-ui-screenplay-tests",
+      "type": "shell",
+      "command": "./gradlew",
+      "args": ["clean", "test", "--no-daemon"],
+      "options": {
+        "env": {
+          "RLAPP_FRONTEND_BASE_URL": "${input:rlappFrontendBaseUrl}",
+          "RLAPP_VALID_USERNAME": "${input:rlappUiValidUsername}",
+          "RLAPP_VALID_PASSWORD": "${input:rlappUiValidPassword}"
+        }
+      },
+      "isBackground": false,
+      "problemMatcher": [],
+      "group": "test"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "rlappFrontendBaseUrl",
+      "type": "promptString",
+      "description": "RLApp frontend base URL",
+      "default": "http://localhost:3000"
+    },
+    {
+      "id": "rlappUiValidUsername",
+      "type": "promptString",
+      "description": "Supervisor username"
+    },
+    {
+      "id": "rlappUiValidPassword",
+      "type": "promptString",
+      "description": "Supervisor password",
+      "password": true
+    }
+  ]
+}
