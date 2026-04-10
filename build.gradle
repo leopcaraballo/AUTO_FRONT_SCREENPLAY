@@ -30,17 +30,13 @@ test {
         showStandardStreams = true
     }
     systemProperty "cucumber.filter.tags", System.getProperty("cucumber.filter.tags")
-    systemProperty "serenity.outputDirectory", "${project.projectDir}/target/site/serenity"
+    finalizedBy aggregate
 }
 
 serenity {
     reports = ["html"]
-    outputDirectory = "${project.projectDir}/target/site/serenity"
 }
 
-tasks.named('aggregate') {
-    doFirst {
-        System.setProperty('serenity.outputDirectory', "${project.projectDir}/target/site/serenity")
-        System.setProperty('projectDir', project.projectDir.absolutePath)
-    }
+clean.doFirst {
+    delete 'target'
 }
